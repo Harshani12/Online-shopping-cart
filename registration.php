@@ -1,3 +1,4 @@
+<?php include 'connection.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,13 +39,31 @@
     <title>Registraion</title>
 </head>
 <body>
+    <?php 
+    if(isset($_POST['submit'])) {
+    $name=$_POST['Name'];
+    $phone=$_POST['Phone'];
+    $email=$_POST['Email'];
+    $password=$_POST['Password'];
+    echo "$name  $phone  $email  $password";
+    $db_Query="INSERT INTO user_r (Name,Phone,Email,Password) VALUES ('$name','$phone','$email','$password')";
+    $result=mysqli_query($con,$db_Query);
+    if($result) {
+        echo "You are Successfuly registered!!!";
+    } else {
+         echo "Unsuccessfull";
+    }
+    } else {
+        echo "error";
+    }
+    ?>
     <h1>Sign up</h1>
-    <form action="registration.php" type="post" align="center">
+    <form action="registration.php" method="POST" align="center">
         <div>
-    Name : <input type="text" name="name"><br><br>
+    Name : <input type="text" name="Name"><br><br>
     Phone : <input type="number" name="Phone"><br><br>
-    Email : <input type="text" name="email"><br><br>
-    Password : <input type="number" name="password"><br><br>
+    Email : <input type="text" name="Email"><br><br>
+    Password : <input type="number" name="Password"><br><br>
     </div>
     <button type="submit" name="submit" >Submit</button><br>
     <p style="font-size: 20px;">Already have an account?</p>
